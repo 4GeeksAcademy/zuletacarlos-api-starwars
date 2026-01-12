@@ -48,8 +48,6 @@ def get_person(people_id):
         return jsonify({"msg": "Personaje no encontrado"}), 404
     return jsonify(person.serialize()), 200
 
-# --- RUTAS DE PLANETAS ---
-
 
 @app.route('/planets', methods=['GET'])
 def get_planets():
@@ -90,7 +88,6 @@ def add_fav_planet(planet_id):
     if not planet:
         return jsonify({"msg": "Planeta no encontrado"}), 404
 
-    # Verificar si ya existe
     existing = Favorite.query.filter_by(
         user_id=user_id, planet_id=planet_id).first()
     if existing:
@@ -104,7 +101,7 @@ def add_fav_planet(planet_id):
 
 @app.route('/favorite/people/<int:people_id>', methods=['POST'])
 def add_fav_people(people_id):
-    user_id = 1  # Usuario hardcodeado para pruebas
+    user_id = 1
 
     user = User.query.get(user_id)
     person = People.query.get(people_id)
